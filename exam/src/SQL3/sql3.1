@@ -1,0 +1,57 @@
+The following table shows the academic performance of students in a semester.
+        Student ID Student Name Phone Course Points
+        00012 John Smith 902-5556 Mathematics 86
+        00014 Raj Sharma 902-8596 Mathematics 75
+        00016 Anan Obi 902-8974 Mathematics 96
+        00015 Lee Wang 902-7845 Physics 92
+        00012 John Smith 902-5556 Physics 63
+        00016 Anan Obi 902-8974 Physics 58
+        00014 Raj Sharma 902-8596 Physics 78
+        00014 Raj Sharma 902-8596 Chemistry 83
+        00015 Lee Wang 902-7845 Chemistry 65
+        00012 John Smith 902-5556 Chemistry 95
+
+
+        1. There are functional dependencies in this table, so first, normalize the relation/table to the second normal
+        form (2NF). Please show the resulting table(s) after the normalization.
+        2. Using the table(s) in 2NF, use a query to display the average points per course for each student, sorted by
+        student names.
+
+
+Q1: what is 2NF? What does normalization mean?
+A1 :Normalization means organize data in this databse to reduce redundancy and improve data integrity.
+    Second Normal Form(2NF) must contain functional dependencies, which mean that some columns depend on others.
+Requirement: identify the functional dependencies and decompose the table into multiple tables(no partial dependency)
+        Composite Primary Key: (Student ID, Course) (both are required to uniquely identify a row).
+        Partial Dependency: Student Name and Phone depend only on Student ID and not on Course.
+
+Course Performance Table:
+        +------------+-------------+--------+
+        | Student ID | Course      | Points |
+        +------------+-------------+--------+
+        | 00012      | Mathematics | 86     |
+        | 00014      | Mathematics | 75     |
+        | 00016      | Mathematics | 96     |
+        | 00015      | Physics     | 92     |
+        | 00012      | Physics     | 63     |
+        | 00016      | Physics     | 58     |
+        | 00014      | Physics     | 78     |
+        | 00014      | Chemistry   | 83     |
+        | 00015      | Chemistry   | 65     |
+        | 00012      | Chemistry   | 95     |
+        +------------+-------------+--------+
+        Student Table:
+        +------------+-------------+-----------+
+        | Student ID | Student Name| Phone     |
+        +------------+-------------+-----------+
+        | 00012      | John Smith  | 902-5556  |
+        | 00014      | Raj Sharma  | 902-8596  |
+        | 00016      | Anan Obi    | 902-8974  |
+        | 00015      | Lee Wang    | 902-7845  |
+        +------------+-------------+-----------+
+
+
+Q2 Using the table(s) in 2NF, use a query to display the average points per course for each student, sorted by
+        student names.
+
+A2 : select s.StudentName,c.course,AVG(c.points) AS averagePoints from studentTable s Join coursePerformanceTable c ON s.studentID = c.StudentID GROUP BY s.studentName, c.course ORDER BY s.StudentName

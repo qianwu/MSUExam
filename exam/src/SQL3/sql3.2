@@ -1,0 +1,74 @@
+
+1. There are functional dependencies in this table, so first, normalize the relation/table to the second normal
+form (2NF). Please show the resulting table(s) after the normalization.
+2. Using the table(s) in 2NF, write a query to display the total vacation days per year for each employee, sorted
+by employee name and year.
+
++------------+--------------+-------------+------+--------------+
+| EmployeeID | EmployeeName | Department  | Year | VacationDays |
++------------+--------------+-------------+------+--------------+
+| 00012      | Luke Ye      | Sales       | 2011 | 6            |
+| 00013      | Mark Brown   | Marketing   | 2012 | 2            |
+| 00016      | James Tevlin | Engineering | 2011 | 4            |
+| 00017      | Ross Becker  | HR          | 2012 | 1            |
+| 00012      | Luke Ye      | Sales       | 2013 | 2            |
+| 00014      | John Smith   | Management  | 2011 | 10           |
+| 00013      | Mark Brown   | Marketing   | 2012 | 5            |
+| 00016      | James Tevlin | Engineering | 2012 | 3            |
+| 00017      | Ross Becker  | HR          | 2013 | 2            |
+| 00017      | Ross Becker  | HR          | 2012 | 3            |
+| 00015      | Mark Brown   | Marketing   | 2013 | 8            |
+| 00012      | Luke Ye      | Sales       | 2012 | 1            |
+| 00014      | John Smith   | Management  | 2011 | 3            |
+| 00015      | Mark Brown   | Marketing   | 2014 | 2            |
++------------+--------------+-------------+------+--------------+
+
+
+
+Q1:  Employee ID → Employee Name, Department:
+
+     Each Employee ID uniquely determines the Employee Name and Department.
+     This indicates a partial dependency, as Employee Name and Department depend only on Employee ID and not on the composite key.
+     (Employee ID, Year) → Vacation Days:
+
+     The combination of Employee ID and Year determines the number of vacation days taken.
+     This is a full dependency, as both Employee ID and Year are needed to uniquely identify the vacation days.
+
+
++------------+-------------+-------------+
+| Employee ID| EmployeeName| Department  |
++------------+-------------+-------------+
+| 00012      | Luke Ye     | Sales       |
+| 00013      | Mark Brown  | Marketing   |
+| 00016      | James Tevlin| Engineering |
+| 00017      | Ross Becker | HR          |
+| 00014      | John Smith  | Management  |
++------------+-------------+-------------+
+
+
++------------+------+--------------+
+| Employee ID| Year | VacationDays|
++------------+------+--------------+
+| 00012      | 2011 | 6           |
+| 00013      | 2012 | 2           |
+| 00016      | 2011 | 4           |
+| 00017      | 2012 | 1           |
+| 00012      | 2013 | 2           |
+| 00014      | 2011 | 10          |
+| 00013      | 2012 | 5           |
+| 00016      | 2012 | 3           |
+| 00017      | 2013 | 2           |
+| 00017      | 2012 | 3           |
+| 00015      | 2013 | 8           |
+| 00012      | 2012 | 1           |
+| 00014      | 2011 | 3           |
+| 00015      | 2014 | 2           |
++------------+------+--------------+
+
+
+
+Q2: Using the table(s) in 2NF, write a query to display the total vacation days per year for each employee, sorted
+    by employee name and year.
+
+    table 1:employee ; table 2: vocation
+    select e.EmployeeName, v.Year, SUM(v.TotalVacationDays) As TotalVacationDays from employee e JOIN vocation v on e.EmployeeID = v.EmployeeID GROUP BY e.EmployeeName, v.Year ORDER BY e.EmployeeName, v.Year;
