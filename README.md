@@ -1,3 +1,2 @@
 # MSUExam
-## This is the first time for me to have an interview of CS master program, although I forgot a lot of math formulas throughout the practices, I feel happy and thrived in the 
-## process. Hope I can make a good impression to the professor.
+## This is my first time preparing for an interview for a CS master's program. Although I forgot some math formulas during the practice sessions, I truly enjoyed the process and felt a sense of growth and achievement. I hope to leave a positive impression on the professor.
