@@ -1,0 +1,70 @@
+Using SQL to perform the below functions on the following table showing a list of products sold.
+
++------------------+-------------+-----------------------+------+------------------+
+| Product Name     | Category ID | Category              | Year | Quantity Purchased |
++------------------+-------------+-----------------------+------+------------------+
+| Shampoo          | 006         | Health and beauty     | 2020 | 10070            |
+| Bowl             | 005         | Home and lifestyle    | 2021 | 210              |
+| Potato           | 002         | Produce               | 2021 | 30130            |
+| Protein Powder   | 001         | Sports and travel     | 2022 | 400              |
+| Energy Drink     | 001         | Sports and travel     | 2022 | 834              |
+| Light Bulbs      | 005         | Home and lifestyle    | 2022 | 900              |
+| Baking Powder    | 004         | Baking                | 2020 | 5000             |
+| Skimmed Milk     | 003         | Dairy                 | 2021 | 300000           |
+| Yogurt           | 003         | Dairy                 | 2020 | 98700            |
+| Cake Mix         | 004         | Baking                | 2020 | 720              |
+| Lotion           | 006         | Health and beauty     | 2020 | 100              |
+| Grapes           | 002         | Produce               | 2020 | 59000            |
+| Hand Soap        | 006         | Health and beauty     | 2021 | 89211            |
+| Flour            | 004         | Baking                | 2021 | 39921            |
+| Brownie Mix      | 004         | Baking                | 2021 | 2131             |
+| Tomato           | 002         | Produce               | 2021 | 653              |
++------------------+-------------+-----------------------+------+------------------+
+
+1. There are functional dependencies in this table, so first, normalize the relation/table to the second normal
+form (2NF). Please show the resulting table(s) after the normalization.
+2. Using the table(s) in 2NF, write a query to display the total quantity purchased per year for each category,
+sorted by category and year.
+(N.B. for this question we are just looking for the SQL table(s) and query)
+
+
+
+
+Q1 :
+
++-------------+-----------------------+
+| Category ID | Category              |
++-------------+-----------------------+
+| 006         | Health and beauty     |
+| 002         | Produce               |
+| 001         | Sports and travel     |
+| 005         | Home and lifestyle    |
+| 004         | Baking                |
+| 003         | Dairy                 |
++-------------+-----------------------+
+
+
++-------------+----------------+------+------------------+
+| Category ID | Product Name   | Year | Quantity Purchased |
++-------------+----------------+------+------------------+
+| 006         | Shampoo        | 2020 | 10070           |
+| 005         | Bowl           | 2021 | 210             |
+| 002         | Potato         | 2021 | 30130           |
+| 001         | Protein Powder | 2022 | 400             |
+| 001         | Energy Drink   | 2022 | 834             |
+| 005         | Light Bulbs    | 2022 | 900             |
+| 004         | Baking Powder  | 2020 | 5000            |
+| 003         | Skimmed Milk   | 2021 | 300000          |
+| 003         | Yogurt         | 2020 | 98700           |
+| 004         | Cake Mix       | 2020 | 720             |
+| 006         | Lotion         | 2020 | 100             |
+| 002         | Grapes         | 2020 | 59000           |
+| 006         | Hand Soap      | 2021 | 89211           |
+| 004         | Flour          | 2021 | 39921           |
+| 004         | Brownie Mix    | 2021 | 2131            |
+| 002         | Tomato         | 2021 | 653             |
++-------------+----------------+------+------------------+
+
+Q2: Using the table(s) in 2NF, write a query to display the total quantity purchased per year for each category,
+    sorted by category and year.
+   SELECT c.category , q.year FROM ,SUM(q.quantity) as Total Quantity Purchased category c JOIN quantity q on c.categoryId = q.categoryId GROUP BY c.category, q.year ORDER BY c.category, q.year;
